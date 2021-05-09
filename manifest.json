@@ -14,10 +14,10 @@
         "sizes": "512x512"
       }
     ],
-    "start_url": "/",
+    "start_url": "/galeri/",
     "background_color": "#F14650",
     "display": "standalone",
-    "scope": "/",
+    "scope": "/galeri/",
     "theme_color": "#F14650",
     "description": "Ini merupakan website statis yang menampilkan foto-foto selama SMP."
 }
