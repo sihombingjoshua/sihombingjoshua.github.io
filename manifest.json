@@ -1,0 +1,24 @@
+{
+    "short_name": "Cuma Galeri",
+    "name": "Cuma Galeri: Galeri oleh Joshua",
+    "icons": [
+      {
+        "src": "/assets/logo-icon.192x192.png",
+        "type": "image/png",
+        "sizes": "192x192",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/assets/logo-icon.512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "start_url": "/",
+    "background_color": "#F14650",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#F14650",
+    "description": "Ini merupakan website statis yang menampilkan foto-foto selama SMP."
+}
+  
