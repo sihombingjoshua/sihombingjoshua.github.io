@@ -18,19 +18,47 @@
     <link rel="stylesheet" href="assets\css\bulma\css\bulma.min.css">
     <link rel="stylesheet" href="assets\javascript\fleximages\jquery.flex-images.css">
     <link rel="stylesheet" href="assets\javascript\fancybox\dist\jquery.fancybox.min.css">
+    <link rel="stylesheet" href="assets\css\bulma\bulma-switch-1.0.2\dist\bulma-switch.min.css">
+    <link rel="stylesheet" href="assets\css\fontawesome\all.min.css">
     <link rel="apple-touch-icon" href="assets\logo-icon.192x192.png">
     <link rel="apple-touch-icon" sizes="64x64" href="assets\logo-icon.png">
     <script src="assets\javascript\jquery-3.6.0.min.js"></script>
     <script src="assets\javascript\fleximages\jquery.flex-images.min.js"></script>
+    <script src="assets\javascript\all.js"></script>
+    <script>
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for(let i = 0; i <ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+        if (getCookie("booldark") == ""){
+            document.cookie = "booldark=false"
+        }
+        if (getCookie("catatan") == ""){
+            document.cookie = "catatan=false"
+        }
+
+    </script>
 </head>
 
-<body>
+<body id="body">
 
-    <nav class="navbar is-danger" role="navigation" aria-label="main navigation">
+
+    <nav id="navigation" class="navbar jored" role="navigation" aria-label="main navigation">
         
         <div class="navbar-brand">
             <a class="navbar-item" href="/">
-                <img src="assets\logo-inline.png" height="50">
+                <img src="assets\logo-inline.svg" style="width:130px;">
             </a>
         
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarGallery">
@@ -47,7 +75,7 @@
                         Event
                     </a>
 
-                    <div class="navbar-dropdown">
+                    <div id="navdrop" class="navbar-dropdown">
                         <a class="navbar-item" id="btnshowall">
                             Tampilkan semua
                         </a>
@@ -67,28 +95,28 @@
                     </div>
                 </div>
             </div>
-        </div>
 
     </nav>
-    <div id="divmodalbtn">
         <div class="modal">
             <div class="modal-background"></div>
             <div class="modal-card">
                 <header class="modal-card-head">
-                  <p class="modal-card-title">Catatan</p>
-                  <button class="delete is-large" aria-label="close" id="closemodal"></button>
+                  <p class="modal-card-title"><strong>Catatan</strong></p>
+                  <button class="delete is-large" aria-label="close" id="closemodal" onclick="catatancookies()"></button>
                 </header>
                 <section class="modal-card-body">
-                  <p>Sebagian besar dari foto di galeri ini saya yang mengambil, tapi tidak semua. Kalau kamu merasa fotomu ada di sini dan tidak mau ditampilkan atau kamu tidak mau wajahmu ditampilkan disini, kontak saya. 
+                  <p style="color: #101010;">Sebagian besar dari foto di galeri ini saya yang mengambil, tapi tidak semua. Kalau kamu merasa fotomu ada di sini dan tidak mau ditampilkan atau kamu tidak mau wajahmu ditampilkan disini, kontak saya. 
                       Bagi kamu yang merasa wajahnya jarang terlihat di galeri ini atau bahkan tidak ada sama sekali, saya minta maaf. Jangan kuatir, itu artinya wajahmu masih mahal.</p>
                 </section>
                 <footer class="modal-card-foot">
                 </footer>
               </div>
         </div>
-
-        <button id="modalbtn" class="button is-warning">Baca ini dahulu!</button>
+    
+    <div id="darkmodebtn">
+        <button title="Mode gelap" id="buttonmode" class="button is-dark" onclick="darkmode()" style="border-radius:100%;height:50px;margin: 0px 7%;float:right;"><i id="iconmode" class="fas fa-moon"></i></button>
     </div>
+
     <main>
         
             <!--gallery-->
@@ -2112,7 +2140,7 @@
         });
         $('.flex-images').flexImages({rowHeight: 220});
 
-        var btnshowall = document.getElementById("btnshowall")
+        var btnshowall = document.getElementById("btnshowall");
         var btn172k19 = document.getElementById("btn172k19");
         var btnclsmet2k19 = document.getElementById("btnclsmet2k19");
         var btninmyclss = document.getElementById("btninmyclss");
@@ -2175,20 +2203,65 @@
             $('.172k19 a, .clsmet2k19 a, .inmyclss a').removeAttr('data-fancybox');
             $('.flex-images').flexImages({rowHeight: 220});
         }
-        var modal = document.getElementsByClassName('modal');
-        var modalbtn = document.getElementById('modalbtn');
-        modalbtn.onclick = function(){
-            $('.modal').addClass('is-active');
+
+        function darkmode(){
+            if (getCookie("booldark") == "true") {
+                document.getElementById("navigation").classList.remove("is-dark");
+                document.getElementById("navigation").style.filter = "drop-shadow(0 -0.2rem 0.75rem #c0c0c0)";
+                document.getElementById("navdrop").classList.remove("dropdowndark");
+                document.getElementById("body").classList.remove("dark");
+                document.getElementById("foot").classList.remove("dark");
+                document.getElementById("buttonmode").classList.add("is-dark");
+                document.getElementById("buttonmode").classList.remove("is-light");
+                document.getElementById("iconmode").classList.add("fa-moon");
+                document.getElementById("iconmode").classList.remove("fa-sun");
+                document.cookie = "booldark=false";
+            }
+            else {
+                document.getElementById("navigation").classList.add("is-dark");
+                document.getElementById("navigation").style.filter = "drop-shadow(0 -0.2rem 0.75rem #101010)";
+                document.getElementById("navdrop").classList.add("dropdowndark");
+                document.getElementById("body").classList.add("dark");
+                document.getElementById("foot").classList.add("dark");
+                document.getElementById("buttonmode").classList.remove("is-dark");
+                document.getElementById("buttonmode").classList.add("is-light");
+                document.getElementById("iconmode").classList.remove("fa-moon");
+                document.getElementById("iconmode").classList.add("fa-sun");
+                document.cookie = "booldark=true";
+            }
         }
+
+        function truemode(){
+            if (getCookie("booldark") == "true") {
+                document.getElementById("navigation").classList.add("is-dark");
+                document.getElementById("navigation").style.filter = "drop-shadow(0 -0.2rem 0.75rem #101010)";
+                document.getElementById("navdrop").classList.add("dropdowndark");
+                document.getElementById("body").classList.add("dark");
+                document.getElementById("foot").classList.add("dark");
+                document.getElementById("buttonmode").classList.remove("is-dark");
+                document.getElementById("buttonmode").classList.add("is-light");
+                document.getElementById("iconmode").classList.remove("fa-moon");
+                document.getElementById("iconmode").classList.add("fa-sun");
+            }
+        }
+
+        var modal = document.getElementsByClassName('modal');
         var closemodal = document.getElementById('closemodal');
+  
         closemodal.onclick = function(){
             $('.modal').removeClass('is-active');
+            document.cookie = "catatan=true";
         }
+
+        if (getCookie("catatan") == "false"){
+                $('.modal').addClass('is-active');
+        }
+
     </script>
     <hr class="divider">
 </body>
 
-<footer class="footer">
+<footer id="foot" class="footer">
     <div class="content has-text-centered">
       <p>
         <strong>Cuma Galeri</strong> by Joshua. <a href="https://github.com/sihombingjoshua/galeri">Kode sumber</a> halaman ini bersifat terbuka dibawah lisensi
@@ -2198,4 +2271,6 @@
     </div>
   </footer>
   
+  <a href="#body" title="Naik ke atas"><button class="button is-danger is-medium" style="border-radius:100%;height:60px;width:60px;position:fixed;bottom:4%;right:4%;"><i id="iconmode" class="fas fa-arrow-up"></i></button></a>
+  <script>truemode();</script>
 </html>
